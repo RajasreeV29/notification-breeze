@@ -11,7 +11,7 @@ class Package extends Model
 
     protected $table = 'packages';
     
-    protected $fillable = ['package_name', 'credits','credit_due','status'];
+    protected $fillable = ['package_name', 'credits','credit_due','file_path','status'];
 
     public function residents()
 {

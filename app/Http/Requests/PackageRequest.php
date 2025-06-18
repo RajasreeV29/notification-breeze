@@ -25,6 +25,7 @@ class PackageRequest extends FormRequest
         'package_name' => 'required|string|max:255',
         'credits' => 'required|numeric|min:0', 
         'credit_due' => 'required|date', 
+        'file_path' => 'required|file|mimes:jpg,png,pdf|max:2048', 
         'status' => 'required|in:active,inactive',
     ];
     }

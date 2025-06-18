@@ -259,7 +259,7 @@ table.table .avatar {
              @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
             @endif				
-				<form action="{{ route('package.store') }}" method="POST" class="col-sm-4">
+				<form action="{{ route('package.store') }}" method="POST" enctype="multipart/form-data" class="col-sm-4">
                                 @csrf
                                 {{-- @method('POST') --}}
                                 <div class="modal-header">
@@ -279,7 +279,10 @@ table.table .avatar {
                                         <label>Expiry Date</label>
                                         <input type="date" name="credit_due" class="form-control" required>
                                     </div>
-                                
+                                 	<div class="form-group">
+                                        <label>File Upload</label>
+                                        <input type="file" name="file_path" class="form-control" required>
+                                    </div>
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select name="status" class="form-control-sm-2" required>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PackageRequest;
 use App\Models\Package;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 
 class PackageController extends Controller
 {
@@ -29,7 +31,9 @@ class PackageController extends Controller
     public function store(PackageRequest $request)
     {
        Package::create($request->validated());
-       
+     
+        $path = Storage::putFile('public', $request->file('file_path'));
+    
        return redirect()->route('package.index')
         ->with('success', 'Package created successfully');
     }

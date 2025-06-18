@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notifications', function (Blueprint $table) {
-            $table->id();
-            $table->string('type');
-            $table->string('notifiable_type');
-            $table->string('notifiable_id');
-            $table->string('data');
-            $table->timestamps();
+        Schema::table('packages', function (Blueprint $table) {
+           $table->string('file_path')->nullable()->after('credit_due');
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notification');
+        Schema::table('packages', function (Blueprint $table) {
+            $table->dropColumn('file_path');
+        });
     }
 };

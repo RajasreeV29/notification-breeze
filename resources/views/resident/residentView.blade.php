@@ -309,6 +309,8 @@ table.table .avatar {
 						<th style="color: red;">status</th>
                         
 						<th style="color: red;">Package Name</th>
+						{{-- <th style="color: red;">Package Image</th> --}}
+
 						<th style="color: red;">Package Due Date</th>
 							
 					</tr>
@@ -330,6 +332,7 @@ table.table .avatar {
 						
 							
 						</td>
+						
 						<td>
 							 @if ($r->package)
                             {{ $r->package->credit_due }}

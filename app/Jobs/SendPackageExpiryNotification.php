@@ -29,7 +29,7 @@ use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     public $timeout = 30;
     public function __construct()
     {
-        $this->onQueue('notifications');
+        // $this->onQueue('notifications');
     }
 
     /**

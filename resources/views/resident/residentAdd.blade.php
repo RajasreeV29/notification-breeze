@@ -379,6 +379,7 @@
                                             <option value="inactive">Inactive</option>
                                         </select>
                                     </div>
+                                   
                                     <div class="form-group">
                                       <label for="package_id">Package</label>
                                         <select name="package_id" class="form-control" required>

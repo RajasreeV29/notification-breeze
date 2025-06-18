@@ -14,6 +14,7 @@ use App\Notifications\PackageExpiryNotification;
 use App\Jobs\SendPackageExpiryNotification;
 use App\Mail\PackageExpiry;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class ResidentController extends Controller
 {
@@ -41,26 +42,19 @@ class ResidentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ResidentEditPackage $request)
+    public function store(\Illuminate\Http\Request $request)
 { 
  // dd("hi");
-    $resident = Resident::create($request->validated());
+    $resident = Resident::create($request->all());
 
     $package = Package::find($resident->package_id);
+  
 
-//     $expiryDate = Carbon::parse($package->credit_due); 
-
-//     $today = Carbon::today();
-
-// if ($package && $expiryDate->subDay()->isSameDay($today)) {
-//     $resident->notify(new PackageExpiryNotification($package));
-// }
     $users = \App\Models\User::all();
     foreach ($users as $user) {
         $user->notify(new PackageAsign($package));
     }
     
-
     return redirect()->route('resident.index')->with('success', 'updated');
 }
 

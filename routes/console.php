@@ -14,7 +14,7 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 
-Schedule::command(SendMail::class)->everyTwoSeconds();
+// Schedule::command(SendMail::class)->everyTwoSeconds();
 // Schedule::job(SendPackageExpiryNotification::class)->everyTwoSeconds();
 Schedule::job(new SendPackageExpiryNotification)->everyTwoSeconds();
 // ->everyTenMinutes();
