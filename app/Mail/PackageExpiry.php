@@ -11,6 +11,7 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\Package;
 use App\Models\Resident;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Mail\Mailables\Attachment;
 
 class PackageExpiry extends Mailable
 {
@@ -54,8 +55,19 @@ class PackageExpiry extends Mailable
      *
      * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
-    public function attachments(): array
-    {
-        return [];
+public function attachments(): array
+{
+
+    $filePath = storage_path('app/public/' . $this->package->file_path);
+
+    if (file_exists($filePath)) {
+        return [
+         
+                Attachment::fromPath($filePath)
+        ];
     }
+
+    return [];
+}
+
 }
