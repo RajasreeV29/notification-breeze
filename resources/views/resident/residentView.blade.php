@@ -309,7 +309,7 @@ table.table .avatar {
 						<th style="color: red;">status</th>
                         
 						<th style="color: red;">Package Name</th>
-						{{-- <th style="color: red;">Package Image</th> --}}
+						<th style="color: red;">Package Image</th>
 
 						<th style="color: red;">Package Due Date</th>
 							
@@ -329,6 +329,14 @@ table.table .avatar {
                             {{ $r->package->package_name }}
                                 
                             @endif
+						
+							
+						</td>
+						 <td>
+                            
+                            {{-- <a href="  "></a> --}}
+                           <img src="{{  Storage::url($r->package->file_path )}}" alt="" style="width: 3cm">    
+                           
 						
 							
 						</td>
