@@ -38,7 +38,7 @@ class PackageController extends Controller
     }
     // dd($data);
     Package::create($data);
-
+    
     // $path = Storage::putFile('public', $request->file('file_path'));
 
     return redirect()->route('package.index')

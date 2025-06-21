@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+@extends('layouts.app')
+@push('styles')
     <title>Residents</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -288,34 +284,11 @@
             font-weight: normal;
         }
     </style>
-    <script>
-        $(document).ready(function() {
-            // Activate tooltip
-            $('[data-toggle="tooltip"]').tooltip();
-
-            // Select/Deselect checkboxes
-            var checkbox = $('table tbody input[type="checkbox"]');
-            $("#selectAll").click(function() {
-                if (this.checked) {
-                    checkbox.each(function() {
-                        this.checked = true;
-                    });
-                } else {
-                    checkbox.each(function() {
-                        this.checked = false;
-                    });
-                }
-            });
-            checkbox.click(function() {
-                if (!this.checked) {
-                    $("#selectAll").prop("checked", false);
-                }
-            });
-        });
-    </script>
+    @endpush
+    
 </head>
 
-<body>
+@section('content')
     <div class="container-xl">
         <div class="table-responsive">
             <div class="table-wrapper">
@@ -345,44 +318,59 @@
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label>Name</label>
-                                        <input type="text" name="res_name" class="form-control" required>
+                                        <input type="text" name="res_name" class="form-control" >
+                                        @error('res_name')
+                                            <p class="text-danger mt-1">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="email" name="email" class="form-control" required>
+                                        <input type="email" name="email" class="form-control" >
+                                        @error('email')
+                                            <p class="text-danger mt-1">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <label>Phone</label>
-                                        <input type="text" name="phone" class="form-control" required>
+                                        <input type="text" name="phone" class="form-control" >
+                                        @error('phone')
+                                            <p class="text-danger mt-1">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                    <div class="form-group">
                                     <label>Gender</label>
                                     <div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male" required>
+                                            <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male" >
                                             <label class="form-check-label" for="genderMale">Male</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female" required>
+                                            <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female" >
                                             <label class="form-check-label" for="genderFemale">Female</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gender" id="genderOther" value="other" required>
+                                            <input class="form-check-input" type="radio" name="gender" id="genderOther" value="other" >
                                             <label class="form-check-label" for="genderOther">Other</label>
                                         </div>
+                                         @error('gender')
+                                            <p class="text-danger mt-1">{{ $message }}</p>
+                                         @enderror
                                     </div>
                                 </div>
                                     <div class="form-group">
                                         <label>Status</label>
-                                        <select name="status" class="form-control" required>
+                                        <select name="status" class="form-control" >
                                             <option value="active">Active</option>
                                             <option value="inactive">Inactive</option>
                                         </select>
+                                        @error('status')
+                                            <p class="text-danger mt-1">{{ $message }}</p>
+                                         @enderror
                                     </div>
                                    
                                     <div class="form-group">
                                       <label for="package_id">Package</label>
-                                        <select name="package_id" class="form-control" required>
+                                        <select name="package_id" class="form-control" >
                                             <option value="">Select a Package</option>
                                                 @foreach ($packages as $package)
                                                  <option value="{{ $package->id }}">{{ $package->package_name }}</option>
@@ -400,6 +388,32 @@
                         </div>
                     </div>
                 </div>
-</body>
+@endsection
+@push('scripts')
+<script>
+        $(document).ready(function() {
+            // Activate tooltip
+            $('[data-toggle="tooltip"]').tooltip();
 
-</html>
+            // Select/Deselect checkboxes
+            var checkbox = $('table tbody input[type="checkbox"]');
+            $("#selectAll").click(function() {
+                if (this.checked) {
+                    checkbox.each(function() {
+                        this.checked = true;
+                    });
+                } else {
+                    checkbox.each(function() {
+                        this.checked = false;
+                    });
+                }
+            });
+            checkbox.click(function() {
+                if (!this.checked) {
+                    $("#selectAll").prop("checked", false);
+                }
+            });
+        });
+    </script>
+    
+@endpush

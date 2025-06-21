@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Cache;
 
 use App\Models\Resident;
 use Illuminate\Http\Request;
@@ -23,6 +24,16 @@ class ResidentController extends Controller
      */
     public function index()
     {
+        // if (Cache::has('cachekey')) {
+        // $residents = Cache::get('cachekey');
+        // }
+        // else{
+        // $residents = Resident::with('package')->get();
+        // Cache::put('cachekey',$residents);
+
+        // }
+        // dd($value);
+
         $residents = Resident::with('package')->get();
         // SendPackageExpiryNotification::dispatch($residents);
        return view('resident.residentView', compact('residents'));
@@ -44,9 +55,17 @@ class ResidentController extends Controller
      */
     public function store(\Illuminate\Http\Request $request)
 { 
- // dd("hi");
-    $resident = Resident::create($request->all());
+ $validated = $request->validate([
+        'res_name' => 'required',
+        'email' => 'required',
+        'phone' => 'required',
+        'gender' => 'required',
+        'status' => 'required',
+        'package_id' => 'required'
 
+    ]);
+    $resident = Resident::create($validated);
+    
     $package = Package::find($resident->package_id);
   
 
@@ -54,7 +73,7 @@ class ResidentController extends Controller
     foreach ($users as $user) {
         $user->notify(new PackageAsign($package));
     }
-    
+    // Cache::forget('cachekey');
     return redirect()->route('resident.index')->with('success', 'updated');
 }
 

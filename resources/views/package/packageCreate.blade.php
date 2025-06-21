@@ -239,12 +239,13 @@ table.table .avatar {
 }	
 </style>
 
-
 @endpush
 
 
 
 @section('content')
+    <div class="container-xl">
+
 	<div class="table-responsive">
 		<div class="table-wrapper">
 			<div class="table-title">
@@ -257,9 +258,13 @@ table.table .avatar {
 				</div>
 			</div>
              @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-            @endif				
-				<form action="{{ route('package.store') }}" method="POST" enctype="multipart/form-data" class="col-sm-4">
+        <div class="alert alert-success">{{ session('success') }}
+
+		</div>
+            @endif	
+			<div class="modal-dialog">
+                        <div class="modal-content">			
+				<form action="{{ route('package.store') }}" method="POST" enctype="multipart/form-data" >
                                 @csrf
                                 {{-- @method('POST') --}}
                                 <div class="modal-header">
@@ -269,23 +274,33 @@ table.table .avatar {
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label>Package Name</label>
-                                        <input type="text" name="package_name" class="form-control" required>
+                                        <input type="text" name="package_name" class="form-control" >
+										@error('package_name')
+                                            <p class="text-danger mt-1">{{ $message }}</p>
+                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label>credits</label>
-                                        <input type="number" name="credits" class="form-control" required>
+                                        <input type="number" name="credits" class="form-control" >
+										@error('credits')
+                                            <p class="text-danger mt-1">{{ $message }}</p>
+                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label>Expiry Date</label>
-                                        <input type="date" name="credit_due" class="form-control" required>
+                                        <input type="date" name="credit_due" class="form-control" >
+										@error('credit_due')
+                                            <p class="text-danger mt-1">{{ $message }}</p>
+                                         @enderror
                                     </div>
                                  	<div class="form-group">
                                         <label>File Upload</label>
-                                        <input type="file" name="file_path" class="form-control" required>
+                                        <input type="file" name="file_path" class="form-control" >
+										
                                     </div>
                                     <div class="form-group">
                                         <label>Status</label>
-                                        <select name="status" class="form-control-sm-2" required>
+                                        <select name="status" class="form-control-sm-2" >
                                             <option value="active">Active</option>
                                             <option value="inactive">Inactive</option>
                                         </select>
