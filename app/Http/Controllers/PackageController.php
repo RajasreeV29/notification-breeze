@@ -14,7 +14,7 @@ class PackageController extends Controller
      */
     public function index()
     {
-       return view(('package.packageCreate'));
+       return view(('packages.packageCreate'));
     }
 
     /**
@@ -22,7 +22,7 @@ class PackageController extends Controller
      */
     public function create()
     {
-     return view('package.packageCreate');
+     return view('packages.packageCreate');
     }
 
     /**
@@ -41,7 +41,7 @@ class PackageController extends Controller
     
     // $path = Storage::putFile('public', $request->file('file_path'));
 
-    return redirect()->route('package.index')
+    return redirect()->route('packages.index')
         ->with('success', 'Package created successfully');
     }
 

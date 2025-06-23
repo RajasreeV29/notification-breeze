@@ -26,13 +26,17 @@ Route::resource('resident',ResidentController::class);
 });
 
 Route::middleware('auth')->group(function () {
-Route::resource('package',PackageController::class);
+Route::resource('packages',PackageController::class);
 });
 
 Route::post('/notifications/mark-as-read', function () {
     Auth::user()->unreadNotifications->markAsRead();
     return back();
 })->name('notifications.markAsRead');
+
+Route::post('/upload-image', function () {
+    Auth::user()->upload->markAsRead();
+    return back();})->name('image.upload');
 
 
 require __DIR__.'/auth.php';

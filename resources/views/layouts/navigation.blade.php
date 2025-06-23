@@ -22,7 +22,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="url('package')" :active="request()->routeIs('package.crate')">
+                    <x-nav-link :href="url('packages')" :active="request()->routeIs('packages.create')">
                         {{ __('Package') }}
                     </x-nav-link>
                 </div>
