@@ -17,6 +17,7 @@ use App\Mail\PackageExpiry;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
+
 class ResidentController extends Controller
 {
     /**
@@ -74,6 +75,8 @@ class ResidentController extends Controller
         $user->notify(new PackageAsign($package));
     }
     // Cache::forget('cachekey');
+ 
+
     return redirect()->route('resident.index')->with('success', 'updated');
 }
 

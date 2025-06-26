@@ -58,7 +58,7 @@ class PackageExpiryTest extends TestCase
 
         // Assert the file actually exists on disk (since it was added via `fromPath`)
         $this->assertTrue(
-            file_exists(storage_path('app/public/package/SBYBUpLrawVWZFTQJr1U871a7IuHhb3FgKpjM357.jpg')),
+            file_exists(storage_path('app/public/package/2rxP4DioBkLqEuSEjnqGs12J6INNnYS3rANs60sL.png')),
             'Expected attachment file does not exist.'
         );
 
