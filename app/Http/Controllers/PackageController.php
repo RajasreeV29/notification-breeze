@@ -30,18 +30,11 @@ class PackageController extends Controller
      */
     public function store(PackageRequest $request)
     {
-    $data = $request->validated();
-    if ($request->hasFile('file_path'))
-    {
-        $data['file_path'] = $request->file('file_path')->store('package','public');
-        // dd($data['file_path']);
-    }
-    // dd($data);
-    Package::create($data);
+       Package::create($request->validated());
+     
+        $path = Storage::putFile('public', $request->file('file_path'));
     
-    // $path = Storage::putFile('public', $request->file('file_path'));
-
-    return redirect()->route('packages.index')
+       return redirect()->route('packages.index')
         ->with('success', 'Package created successfully');
     }
 
