@@ -6,6 +6,8 @@ use App\Http\Controllers\ResidentController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostController;
+
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
@@ -67,6 +69,10 @@ Route::get('/lang/{locale}', function ($locale) {
 
 Route::middleware('auth')->group(function () {
 Route::resource('category',CategoryController::class);
+});
+
+Route::middleware('auth')->group(function () {
+Route::resource('post',PostController::class);
 });
 
 Route::get('/test', function () {

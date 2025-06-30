@@ -294,7 +294,7 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2>Create <b>Category</b></h2>
+                            <h2>Create <b>Post</b></h2>
                         </div>
 
                     </div>
@@ -307,25 +307,33 @@
                 <div>
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form action="{{ route('post.store') }}" method="POST" >
+                            <form id="residentForm" action="{{ route('post.store') }}" method="POST" >
                 @csrf
 
                 <div class="modal-header">
-                    <h4 class="modal-title">Create Category</h4>
+                    <h4 class="modal-title">Create Post</h4>
                 </div>
 
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" name="name" class="form-control">
+                        <input type="text" name="title" class="form-control">
                         @error('res_name')
                             <p class="text-danger mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
-                </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text-area" name="content" class="form-control">
+                        @error('email')
+                            <p class="text-danger mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                   
                 <div class="modal-footer">
-                    <a href="/resident" class="btn btn-secondary">Cancel</a>
+                    <a href="/post" class="btn btn-secondary">Cancel</a>
                     <input type="submit" class="btn btn-success" value="Add">
                 </div>
             </form>
@@ -337,7 +345,7 @@
 
 @push('scripts')
 <script>
-$(function () {
+$(document).ready(function () {
     $('#residentForm').validate({
         ignore: [],
         rules: {

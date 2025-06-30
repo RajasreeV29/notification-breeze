@@ -8,6 +8,7 @@ use App\Notifications\PackageExpiryNotification;
 use App\Jobs\SendPackageExpiryNotification;
 use App\Console\Commands\SendMail;
 use Illuminate\Support\Facades\Schedule;
+use App\Console\Commands\DeleteOldSoftDeletedPosts;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
@@ -19,3 +20,5 @@ Artisan::command('inspire', function () {
 Schedule::job(new SendPackageExpiryNotification)->everyTwoSeconds();
 // ->everyTenMinutes();
 // ->dailyAt('09:00');
+
+Schedule::command(DeleteOldSoftDeletedPosts::class)->everyTwoSeconds();
