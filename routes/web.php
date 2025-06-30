@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResidentController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\CategoryController;
+
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 
@@ -60,4 +62,17 @@ Route::get('/lang/{locale}', function ($locale) {
     return redirect()->back();
 })->name('lang.switch');
 });
+
+
+
+Route::middleware('auth')->group(function () {
+Route::resource('category',CategoryController::class);
+});
+
+Route::get('/test', function () {
+    return view('test');
+});
+
+
+
 require __DIR__.'/auth.php';

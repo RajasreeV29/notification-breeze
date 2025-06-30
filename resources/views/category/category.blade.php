@@ -307,85 +307,23 @@
                 <div>
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form id="residentForm" action="{{ route('resident.store') }}" method="POST" >
+                            <form action="{{ route('category.store') }}" method="POST" >
                 @csrf
 
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Resident</h4>
+                    <h4 class="modal-title">Create Category</h4>
                 </div>
 
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" name="res_name" class="form-control">
+                        <input type="text" name="name" class="form-control">
                         @error('res_name')
                             <p class="text-danger mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" class="form-control">
-                        @error('email')
-                            <p class="text-danger mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label>Phone</label>
-                        <input type="text" name="phone" class="form-control">
-                        @error('phone')
-                            <p class="text-danger mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label>Gender</label>
-                        <div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender" value="male">
-                                <label class="form-check-label">Male</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender" value="female">
-                                <label class="form-check-label">Female</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender" value="other">
-                                <label class="form-check-label">Other</label>
-                            </div>
-                        </div>
-                        @error('gender')
-                            <p class="text-danger mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label>Status</label>
-                        <select name="status" class="form-control">
-                            <option value="">Select Status</option>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                        </select>
-                        @error('status')
-                            <p class="text-danger mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="package_id">Package</label>
-                        <select name="package_id" class="form-control">
-                            <option value="">Select a Package</option>
-                            @foreach ($packages as $package)
-                                <option value="{{ $package->id }}">{{ $package->package_name }}</option>
-                            @endforeach
-                        </select>
-                        @error('package_id')
-                            <p class="text-danger mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
                 </div>
-
                 <div class="modal-footer">
                     <a href="/resident" class="btn btn-secondary">Cancel</a>
                     <input type="submit" class="btn btn-success" value="Add">
@@ -399,7 +337,7 @@
 
 @push('scripts')
 <script>
-$(document).ready(function () {
+$(function () {
     $('#residentForm').validate({
         ignore: [],
         rules: {
