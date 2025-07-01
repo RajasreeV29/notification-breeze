@@ -249,48 +249,53 @@ table.table .avatar {
 		<div class="table-wrapper">
 			<div class="table-title">
 				<div class="row">
+
 					<div class="col-sm-6">
 						<h2>Manage <b>Residents</b></h2>
 					</div>
-					<div class="col-sm-6">
-						<a href="{{ route('resident.create')}}" class="btn btn-success" ><i class="material-icons"></i> Add New Resident</a>	
-											
+					<div class="col-sm-6 d-flex align-items-center">
+					{{-- Filter Dropdown --}}
+					<form id="statusFilterForm" class="me-2">
+						<select id="statusFilter" class="form-control">
+							<option value="">-- Filter by Status --</option>
+							<option value="active">Active</option>
+							<option value="inactive">Inactive</option>
+							<option value="extract_names">Active Resident Name</option>
+						</select>
+					</form>
+					 {{-- Add New Resident Button --}}
+						<a href="{{ route('resident.create') }}" class="btn btn-success ms-2">
+							<i class="material-icons">&#xE147;</i> <span>Add New Resident</span>
+						</a>
 					</div>
-										{{-- @foreach (auth()->user()->unreadNotifications as $notification)
-						<div class="alert alert-info">
-							{{ $notification->data['message'] }} 
-						</div>
-					@endforeach --}}
-					<!-- Notification Bell Dropdown -->
-<!-- Notification Bell Dropdown -->
 
-<div class="dropdown" style="display:inline-block; float:right; margin-right:20px;">
-        <button class="btn btn-dark dropdown-toggle" 
-                type="button"
-                id="notificationBell" 
-                data-bs-toggle="dropdown" 
-                aria-expanded="false">
-            <i class="fa fa-bell" style="font-size: 1.5rem;"></i>
-            <span id="notifCount" class="badge badge-danger position-absolute" 
-                  style="top:0; right:0; {{ auth()->user()->unreadNotifications->count() ? '' : 'display:none;' }}">
-                {{ auth()->user()->unreadNotifications->count() }}
-            </span>
-        </button>
-        
-        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationBell">
-            @forelse(auth()->user()->unreadNotifications as $notification)
-                <a class="dropdown-item" href="#">
-                    {{ $notification->data['message'] }}
-                </a>
-            @empty
-                <span class="dropdown-item text-muted">No new notifications</span>
-            @endforelse
-        </div>
+			<div class="dropdown" style="display:inline-block; float:right; margin-right:20px;">
+					<button class="btn btn-dark dropdown-toggle" 
+						type="button"
+						id="notificationBell" 
+						data-bs-toggle="dropdown" 
+						aria-expanded="false">
+						<i class="fa fa-bell" style="font-size: 1.5rem;"></i>
+						<span id="notifCount" class="badge badge-danger position-absolute" 
+						style="top:0; right:0; {{ auth()->user()->unreadNotifications->count() ? '' : 'display:none;' }}">
+						{{ auth()->user()->unreadNotifications->count() }}
+					</span>
+					</button>
+				
+					<div class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationBell">
+						@forelse(auth()->user()->unreadNotifications as $notification)
+							<a class="dropdown-item" href="#">
+								{{ $notification->data['message'] }}
+							</a>
+						@empty
+							<span class="dropdown-item text-muted">No new notifications</span>
+						@endforelse
+					</div>
 
-        <form id="markAsReadForm" action="{{ route('notifications.markAsRead') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
-    </div>
+					<form id="markAsReadForm" action="{{ route('notifications.markAsRead') }}" method="POST" style="display: none;">
+						@csrf
+					</form>
+			</div>
  
 					
 				</div>
@@ -317,59 +322,40 @@ table.table .avatar {
 							
 					</tr>
 				</thead>
-				<tbody>
-                    @foreach($residents as $r)
-					<tr>
-						
-						<td>{{ $r->res_name }}</td>
-						<td>{{ $r->email }}</td>
-						<td>{{ $r->phone }}</td>
-						<td>{{ $r->gender}}</td>
-						<td>{{ $r->status }}</td>
-                        <td>
-                            @if ($r->package)
-                            {{ $r->package->package_name }}
-                                
-                            @endif
-						
-							
-						</td>
-						 <td>
-                            
-                            {{-- <a href="  "></a> --}}
-                           <img src="{{  Storage::url($r->package->file_path )}}" alt="" style="width: 3cm">    
-                           
-						
-							
-						</td>
-						
-						<td>
-							 @if ($r->package)
-                            {{ $r->package->credit_due }}
-                                
-                            @endif
-						
-						</td>
-						<td>
-							<!-- filepath: resources\views\resident\residentView.blade.php -->
-							<button type="button" 
-									class="btn btn-success btn-sm" 
-									onclick="window.location='{{ route('resident.edit', $r->id) }}'">
-								Edit<i class="material-icons">&#xE254;</i>
-							</button>
-							{{-- <a href="#" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> --}}
-						<form action="{{ route('resident.destroy', $r->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-outline-danger btn-sm"
-                                        onclick="return confirm('Are you sure you want to delete this Package?')" title="Delete">
-                                     <i class="fa fa-trash" aria-hidden="true"></i>
-                                </button>
-                            </form>
-                       </td>
-					</tr>
-					@endforeach
-				</tbody>
+				<tbody id="residentTableBody">
+    @foreach($residents as $r)
+        <tr>
+            <td>{{ $r->res_name }}</td>
+            <td>{{ $r->email }}</td>
+            <td>{{ $r->phone }}</td>
+            <td>{{ $r->gender}}</td>
+            <td>{{ $r->status }}</td>
+            <td>{{ $r->package?->package_name }}</td>
+            <td>
+                @if ($r->package)
+                    <img src="{{ Storage::url($r->package->file_path) }}" style="width: 3cm">
+                @endif
+            </td>
+            <td>{{ $r->package?->credit_due }}</td>
+            <td>
+                <button type="button" 
+                    class="btn btn-success btn-sm" 
+                    onclick="window.location='{{ route('resident.edit', $r->id) }}'">
+                    Edit<i class="material-icons">&#xE254;</i>
+                </button>
+                <form action="{{ route('resident.destroy', $r->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-outline-danger btn-sm"
+                        onclick="return confirm('Are you sure you want to delete this Package?')" title="Delete">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+    @endforeach
+</tbody>
+
 			</table>
 @endsection
 
@@ -396,6 +382,89 @@ document.addEventListener('DOMContentLoaded', function() {
         if (timer) clearTimeout(timer);
     });
 });
+</script>
+<script>
+
+    $(document).ready(function () {
+        $('#statusFilter').on('change', function () {
+            let selectedStatus = $(this).val();
+
+            $.ajax({
+                url: '{{ route('residents.filter') }}',
+                type: 'GET',
+                data: { status: selectedStatus },
+                success: function (response) {
+                    let rows = '';
+                    let thead = '';
+
+                    if (selectedStatus === 'extract_names') {
+                        thead = `
+                            <tr>
+                                <th style="color: red;">Resident Name</th>
+                            </tr>
+                        `;
+
+                        response.forEach(function (name) {
+                            rows += `
+                                <tr>
+                                    <td>${name}</td>
+                                </tr>
+                            `;
+                        });
+                    } else {
+                        thead = `
+                            <tr>
+                                <th style="color: red;">Resident Name</th>
+                                <th style="color: red;">Email</th>
+                                <th style="color: red;">Phone</th>
+                                <th style="color: red;">Gender</th>
+                                <th style="color: red;">Status</th>
+                                <th style="color: red;">Package Name</th>
+                                <th style="color: red;">Package Image</th>
+                                <th style="color: red;">Package Due Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        `;
+
+                        response.forEach(function (r) {
+                            rows += `
+                                <tr>
+                                    <td>${r.res_name}</td>
+                                    <td>${r.email}</td>
+                                    <td>${r.phone}</td>
+                                    <td>${r.gender}</td>
+                                    <td>${r.status}</td>
+                                    <td>${r.package ? r.package.package_name : ''}</td>
+                                    <td>${r.package ? `<img src='/storage/${r.package.file_path}' style='width:3cm;'>` : ''}</td>
+                                    <td>${r.package ? r.package.credit_due : ''}</td>
+                                    <td>
+                                        <button class="btn btn-success btn-sm" onclick="window.location='/resident/${r.id}/edit'">
+                                            Edit<i class="material-icons">&#xE254;</i>
+                                        </button>
+                                        <form action="/resident/${r.id}" method="POST" style="display:inline;">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                onclick="return confirm('Are you sure?')" title="Delete">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>`;
+                        });
+                    }
+
+                    // Replace table head and body
+                    $('thead').html(thead);
+                    $('#residentTableBody').html(rows);
+                },
+                error: function () {
+                    alert('Something went wrong while filtering.');
+                }
+            });
+        });
+    });
+
 </script>
 @endpush
   

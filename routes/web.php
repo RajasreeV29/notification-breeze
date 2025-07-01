@@ -84,6 +84,8 @@ Route::get('/test', function () {
     return view('test');
 });
 
+Route::get('/residents/filter', [ResidentController::class, 'filter'])->name('residents.filter');
+
 
 
 require __DIR__.'/auth.php';

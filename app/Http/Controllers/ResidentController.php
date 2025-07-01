@@ -41,6 +41,22 @@ class ResidentController extends Controller
 
         }
 
+    public function filter(Request $request)
+    {
+   $status = $request->status;
+
+    if ($status === 'extract_names') {
+        $names = Resident::where('status', 'active')->pluck('res_name');
+        return response()->json($names);
+    }
+
+    $residents = Resident::with('package')
+        ->when($status, fn($query) => $query->where('status', $status))
+        ->get();
+
+    return response()->json($residents);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
