@@ -8,7 +8,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ContactController;
-
+use App\Facades\LoggerFacade;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;

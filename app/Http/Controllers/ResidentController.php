@@ -16,7 +16,7 @@ use App\Jobs\SendPackageExpiryNotification;
 use App\Mail\PackageExpiry;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-
+use App\Facades\LoggerFacade;
 
 class ResidentController extends Controller
 {
@@ -34,7 +34,7 @@ class ResidentController extends Controller
 
         // }
         // dd($value);
-
+        LoggerFacade::log('User visited index page');
         $residents = Resident::with('package')->get();
         // SendPackageExpiryNotification::dispatch($residents);
        return view('resident.residentView', compact('residents'));

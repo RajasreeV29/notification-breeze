@@ -26,7 +26,5 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })->create();
 
-Event::listen(
-    CategoryEvent::class,
-    [SendCategoryCreatedEmail::class, 'handle']
+Event::listen(CategoryEvent::class,[SendCategoryCreatedEmail::class, 'handle']
 );  
