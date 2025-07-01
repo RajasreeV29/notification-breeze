@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ContactController;
 
 
 use Illuminate\Support\Facades\App;
@@ -74,6 +75,10 @@ Route::resource('category',CategoryController::class);
 Route::middleware('auth')->group(function () {
 Route::resource('post',PostController::class);
 });
+
+Route::middleware('auth')->group(function () {
+Route::resource('contact',ContactController::class);
+})->name('contact');
 
 Route::get('/test', function () {
     return view('test');

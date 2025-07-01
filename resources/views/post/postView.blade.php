@@ -12,6 +12,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <style>  
 body {
 	color: #566787;
@@ -266,31 +268,39 @@ table.table .avatar {
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
+						<th></th>
                         <th style="color: red;">Post Title</th>
                         <th style="color: red;">Content</th>
-                        <th style="color: red;">Actions</th> <!-- Missing TH for Actions -->
+                        <th style="color: red;">Actions</th> 
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($post as $p)
                         <tr>
+							<td></td>
                             <td>{{ $p->title }}</td>
                             <td>{{ $p->content }}</td>
                             <td>
-                                <button type="button" 
-									class="btn btn-success btn-sm" 
-									onclick="window.location='">
-								Edit<i class="material-icons">&#xE254;</i>
-							</button>
-                               <form action="{{ route('post.destroy', $p->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-outline-danger btn-sm"
-                                        onclick="return confirm('Are you sure you want to delete this Package?')" title="Delete">
-                                     <i class="fa fa-trash" aria-hidden="true"></i>
-                                </button>
-                            </form>
-                            </td>
+							<div class="d-flex align-items-center gap-2">
+								<button type="button" 
+										class="btn btn-success btn-sm" 
+										onclick="window.location='#'">
+									Edit <i class="material-icons"></i>
+								</button>
+
+								<form action="{{ route('post.destroy', $p->id) }}" method="POST">
+									@csrf
+									@method('DELETE')
+									<button type="submit" 
+											class="btn btn-outline-danger btn-sm"
+											onclick="return confirm('Are you sure you want to delete this Package?')" 
+											title="Delete">
+										<i class="fa fa-trash" aria-hidden="true"></i>
+									</button>
+								</form>
+							</div>
+						</td>
+
                         </tr>
                     @endforeach
                 </tbody>

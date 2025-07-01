@@ -31,22 +31,22 @@
                         {{ __('News Paper') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="url('category')" :active="request()->routeIs('category')">
                         {{ __('Category') }}
                     </x-nav-link>
-                </div>
-                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                </div> --}}
+                 {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="url('post')" :active="request()->routeIs('post')">
                         {{ __('Post') }}
                     </x-nav-link>
-                </div>
+                </div> --}}
                 <!-- Dropdown Menu -->
-    {{-- <div class="relative hidden sm:ms-6 sm:flex">
+    <div class="relative hidden sm:ms-6 sm:flex sm:items-center">
     <x-dropdown align="left" width="48">
         <x-slot name="trigger">
-            <button class="inline-flex items-center px-3 py-2 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none transition">
-                {{ __('Post') }}
+            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                {{ __('More') }}
                 <svg class="ms-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M5.25 6.75L10 11.25L14.75 6.75" />
                 </svg>
@@ -55,15 +55,18 @@
 
         <x-slot name="content">
             <!-- Add dropdown links here -->
-            <x-dropdown-link :href="url('post')" :active="request()->routeIs('post.create')">
-                {{ __('Post Creation') }}
+             <x-dropdown-link :href="url('category')" :active="request()->routeIs('category')">
+                {{ __('Create Category') }}
             </x-dropdown-link>
-            <x-dropdown-link :href="url('post')" :active="request()->routeIs('post.index')">
-                {{ __('Post Manage') }}
+            <x-dropdown-link :href="url('post')" :active="request()->routeIs('post')">
+                {{ __('Manage Post') }}
+            </x-dropdown-link>
+            <x-dropdown-link :href="url('contact')" :active="request()->routeIs('contact')">
+                {{ __('Contact') }}
             </x-dropdown-link>
         </x-slot>
     </x-dropdown>
-</div> --}}
+</div>
 
             </div>
             
